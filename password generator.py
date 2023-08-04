@@ -1,5 +1,3 @@
-# Go to: https://replit.com/@appbrewery/password-generator-start?v=1
-
 #Password Generator Project
 import random
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -14,30 +12,31 @@ nr_numbers = int(input(f"How many numbers would you like?\n"))
 # #Eazy Level - Order not randomised:
 # #e.g. 4 letter, 2 symbol, 2 number = JduE&!91
 generated_password = ''
+generated_password_list = []
 # generate random letters 
 for number in range(0, nr_letters):
-    randomLetterIndex = random.randint(0,25)
-    generated_password += letters[randomLetterIndex]
+    randomLetter = random.choice(letters)
+    generated_password += randomLetter
+    generated_password_list.append(randomLetter)
+
 # generate random symbols
 for number in range(0, nr_symbols):
     randomSymbolIndex = random.randint(0,8)
     generated_password += symbols[randomSymbolIndex]
+    generated_password_list.append(symbols[randomSymbolIndex])
+
 # generate random numbers
 for number in range(0, nr_numbers):
-    randomNumIndex = random.randint(0,9)
-    generated_password += numbers[randomNumIndex]
-print(f'sequential: {generated_password}')
+    randomNumber = random.choice(numbers)
+    generated_password += randomNumber
+    generated_password_list.append(randomNumber)
 
-# #Hard Level - Order of characters randomised:
-# #e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
-shuffled_password = ''
-used_index = []
-while len(shuffled_password) != len(generated_password):
-    x = random.randint(0, len(generated_password) - 1)
-    if (x in used_index):
-         continue
-    else:
-        used_index.append(x)
-        shuffled_password += generated_password[x] 
+print(f'sequenced: {generated_password}')
+
+#Hard Level - Order of characters randomised:
+#e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
+
+random.shuffle(generated_password_list)
+shuffled_password = ''.join(str(x) for x in generated_password_list)
 
 print(f'randomised: {shuffled_password}')
